@@ -1,1 +1,1 @@
-For Project 0x00. Unity - User Interface
+For Unity 3d projects at Holberton School.
