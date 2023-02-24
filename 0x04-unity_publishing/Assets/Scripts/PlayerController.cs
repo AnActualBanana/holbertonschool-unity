@@ -27,13 +27,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0)
+        if (health <= 0) //player loss check, shows loss screen, resets player and scene
         {
             winLoseText.text = "Game Over!";
             winLoseText.color = Color.white;
             winLoseBG.color = Color.red;
             winLoseBG.gameObject.SetActive(true); // enable WinLoseBG element
-            StartCoroutine(LoadScene(3.0f));
+            StartCoroutine(LoadScene(3.0f)); //delay
             health = originalHealth;
             score = originalScore;
         }
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
         {
         SceneManager.LoadScene("Menu");
         }
-
+        //movement
         if (direction.magnitude > 0)
         {
             velocity += direction * speed * Time.deltaTime;
