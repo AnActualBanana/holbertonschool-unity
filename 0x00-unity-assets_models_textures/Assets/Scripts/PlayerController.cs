@@ -1,27 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public LayerMask groundMask;
-    public float gravity = 9.81f;
-    private float verticalVelocity = 0.0f;
-    public float speed = 5.0f;
-    public float jumpSpeed = 5.0f;
+    public GameObject player;
+
     private CharacterController controller;
-    private bool isGrounded = false;
+    private bool isGrounded;
     public float groundCheckDistance = 0.1f;
-    void Start()
+    private float verticalVelocity = 0.0f;
+
+    [SerializeField]
+    private float _playerSpeed = 5f;
+
+    [SerializeField]
+    private float _rotationSpeed = 10f;
+
+    [SerializeField]
+    private Camera _followCamera;
+
+    private Vector3 _playerVelocity;
+    private bool _groundedPlayer;
+
+    [SerializeField]
+    private float jumpHeight = 30.0f;
+    [SerializeField]
+    private float jumped = 0.00f;
+    private bool jumping = false;
+
+    [SerializeField]
+    private float _gravityValue = -9.81f;
+    public GameObject resetSpawn;
+
+    private void Start() 
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();    
+    }
+
+    private void Update() 
+    {
+        UpdateGroundCheck();
+        Movement();    
+    }
+
+    private void FixedUpdate() {
+        {
+            //UpdateGroundCheck();
+        }
     }
 
     void UpdateGroundCheck()
 {
     // Cast a ray from player's feet to the ground to check if there is a ground surface
-    RaycastHit hit;
-    if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundMask))
+    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hit, groundCheckDistance))
     {
         isGrounded = true;
     }
@@ -30,36 +63,58 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
     }
 }
-
-    void Update()
+    void Movement() 
     {
-         // Update ground check
-        UpdateGroundCheck();
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        if (controller.isGrounded)
-    {
-        // Apply gravity to reset vertical velocity
-        verticalVelocity = -gravity * Time.deltaTime;
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        // Check if the player wants to jump
-        if (Input.GetButtonDown("Jump"))
+        Vector3 movementInput = Quaternion.Euler(0, _followCamera.transform.eulerAngles.y, 0) * new Vector3(horizontalInput, 0, verticalInput);
+        Vector3 movementDirection = movementInput.normalized;
+
+
+
+        Quaternion desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            
+        
+        //if (isGrounded == false && jumping == false)
+            controller.Move(Physics.gravity/1.25f * Time.deltaTime);
+
+        if (movementDirection != Vector3.zero) 
         {
-            // Apply jump speed to vertical velocity
-            verticalVelocity = jumpSpeed;
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, _rotationSpeed * Time.deltaTime);
+            movementDirection *= _playerSpeed;
+            controller.Move(movementDirection * Time.deltaTime);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isGrounded == true)
+                StartCoroutine("jump");
+        }
+        
+        }
+    IEnumerator jump()
+    {
+        jumping = true;
+        while (jumped < jumpHeight)
+        {
+            controller.Move(Vector3.up * ((jumped += jumpHeight/60) * 1.5f) * Time.deltaTime);
+            yield return null;
+        }
+        jumping = false;
+        jumped = 0;
+    yield break;  
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+
+        if (other.gameObject.CompareTag("Reset"))
+        {
+            controller.enabled = false;
+            player.transform.position = resetSpawn.transform.position;
+            controller.enabled = true;
+            Debug.Log("Reset");
         }
     }
-    else
-    {
-        // Apply gravity
-        verticalVelocity -= gravity * Time.deltaTime;
-    }
-        Vector3 direction = new Vector3(horizontal, verticalVelocity, vertical);
-        controller.Move(direction * Time.deltaTime);
-        direction = transform.TransformDirection(direction);
-        direction *= speed;
-
-        controller.Move(direction * Time.deltaTime);
-
-}
 }
