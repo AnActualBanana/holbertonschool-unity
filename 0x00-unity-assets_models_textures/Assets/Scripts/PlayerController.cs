@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             
         
         //if (isGrounded == false && jumping == false)
-            controller.Move(Physics.gravity/1.25f * Time.deltaTime);
+            controller.Move(Physics.gravity/1.5f * Time.deltaTime);
 
         if (movementDirection != Vector3.zero) 
         {
