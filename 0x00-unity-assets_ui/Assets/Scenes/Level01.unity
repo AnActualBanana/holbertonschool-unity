@@ -26347,6 +26347,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4179775208806651686, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775208806651686, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775208806651686, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4179775209032811956, guid: b5d67140599dbc842b902b0151079f68, type: 3}
       propertyPath: m_Name
       value: PauseCanvas
@@ -26434,6 +26446,34 @@ PrefabInstance:
     - target: {fileID: 4179775209032811960, guid: b5d67140599dbc842b902b0151079f68, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775209104712583, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Name
+      value: ResumeText
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775209104712585, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775209104712585, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775209104712585, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775209329886484, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775209329886484, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179775209329886484, guid: b5d67140599dbc842b902b0151079f68, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5d67140599dbc842b902b0151079f68, type: 3}
