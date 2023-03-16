@@ -2503,10 +2503,10 @@ PrefabInstance:
     - target: {fileID: 5093320941184075062, guid: 3023f35b1a5c8804aa9940e20f95a6f4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 2088814195}
+      objectReference: {fileID: 0}
     - target: {fileID: 5093320941184075062, guid: 3023f35b1a5c8804aa9940e20f95a6f4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5093320941184075062, guid: 3023f35b1a5c8804aa9940e20f95a6f4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState

@@ -1,112 +1,75 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public GameObject player;
-
-    private CharacterController controller;
-    private bool isGrounded;
-    public float groundCheckDistance = 0.1f;
-    private float verticalVelocity = 0.0f;
-
-    [SerializeField]
-    private float _playerSpeed = 5f;
-
-    [SerializeField]
-    private float _rotationSpeed = 10f;
-
-    [SerializeField]
-    private Camera _followCamera;
-
-    private Vector3 _playerVelocity;
-    private bool _groundedPlayer;
-
-    [SerializeField]
-    private float jumpHeight = 30.0f;
-    [SerializeField]
-    private float jumped = 0.00f;
-    private bool jumping = false;
-
-    [SerializeField]
-    private float _gravityValue = -9.81f;
     private Transform resetSpawn;
+    public CharacterController controller;
+    public Transform cam;
 
-    private void Start() 
+
+
+    public float speed = 6f;
+    public float gravity = -9.81f;
+    public float jumpHeight = 3f;
+
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+    Vector3 velocity;
+    bool isGrounded;
+
+
+    public float turnSmoothTime = 0.1f;
+    float  turnSmoothVelocity;
+
+
+    private void Update()
     {
-        controller = GetComponent<CharacterController>();    
-    }
 
-    private void Update() 
-    {
-        UpdateGroundCheck();
-        Movement();    
-    }
+        //gravity
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-    private void FixedUpdate() {
+        if (isGrounded && velocity.y < 0)
         {
-            //UpdateGroundCheck();
+            velocity.y = -2f;
         }
-    }
+        velocity.y += gravity * Time.deltaTime;
 
-    void UpdateGroundCheck()
-{
-    // Cast a ray from player's feet to the ground to check if there is a ground surface
-    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hit, groundCheckDistance))
-    {
-        isGrounded = true;
-    }
-    else
-    {
-        isGrounded = false;
-    }
-}
-    void Movement() 
-    {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        controller.Move(velocity * Time.deltaTime);
 
-        Vector3 movementInput = Quaternion.Euler(0, _followCamera.transform.eulerAngles.y, 0) * new Vector3(horizontalInput, 0, verticalInput);
-        Vector3 movementDirection = movementInput.normalized;
-
-
-
-        Quaternion desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-            
-        
-        //if (isGrounded == false && jumping == false)
-            controller.Move(Physics.gravity/1.5f * Time.deltaTime);
-
-        if (movementDirection != Vector3.zero) 
+        if(Input.GetKeyDown(KeyCode.Space)&&isGrounded)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, _rotationSpeed * Time.deltaTime);
-            movementDirection *= _playerSpeed;
-            controller.Move(movementDirection * Time.deltaTime);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        // horizontal movement
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+
+        if (direction.magnitude >= 0.1f)
         {
-            if (isGrounded == true)
-                StartCoroutine("jump");
+            //look direction
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
-        
-        }
-    IEnumerator jump()
-    {
-        jumping = true;
-        while (jumped < jumpHeight)
-        {
-            controller.Move(Vector3.up * ((jumped += jumpHeight/60) * 1.5f) * Time.deltaTime);
-            yield return null;
-        }
-        jumping = false;
-        jumped = 0;
-    yield break;  
+
+
     }
-
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other) //Teleport
     {
 
         if (other.gameObject.CompareTag("Reset"))
@@ -118,4 +81,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Reset");
         }
     }
+
+
+
 }

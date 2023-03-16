@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
 
     private float _rotationY;
     private float _rotationX;
+    public bool isInverted;
 
     [SerializeField]
     private Transform _target;
@@ -29,6 +30,8 @@ public class CameraController : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
+        if (isInverted)
+            mouseY = mouseY * -1;
 
         _rotationY += mouseX;
         _rotationX += mouseY;
@@ -42,7 +45,7 @@ public class CameraController : MonoBehaviour
         _currentRotation = Vector3.SmoothDamp(_currentRotation, nextRotation, ref _smoothVelocity, _smoothTime);
         transform.localEulerAngles = _currentRotation;
 
-        // Substract forward vector of the GameObject to point its forward vector to the target
+        // Subtract forward vector of the GameObject to point its forward vector to the target
         transform.position = _target.position - transform.forward * _distanceFromTarget;
     }
 }
