@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
     private float _rotationY;
     private float _rotationX;
-    public bool isInverted;
+    public string invertY;
 
     [SerializeField]
     private Transform _target;
@@ -28,10 +28,12 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        invertY = PlayerPrefs.GetString("invertY");
+        Debug.Log(invertY);
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
-        if (isInverted)
-            mouseY = mouseY * -1;
+        if (invertY == "true")
+            mouseY *= -1;
 
         _rotationY += mouseX;
         _rotationX += mouseY;

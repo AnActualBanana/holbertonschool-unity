@@ -3,26 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Scenes : MonoBehaviour
+public class gameManager : MonoBehaviour
 {
+    public GameObject _gameManager = null;
     public string previousScene;
+    public string currentScene;
     private void Awake() {
         {
+
             DontDestroyOnLoad(this.gameObject);
         }
     }
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        previousScene = SceneManager.GetActiveScene().name;
+        currentScene = SceneManager.GetActiveScene().name;
     }
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) //triggers on loading a new scene
     {
-        previousScene = scene.name;
+        //moves previous scene and current scene names
+        previousScene = currentScene;
+        currentScene = SceneManager.GetActiveScene().name;
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
     }
-    public string grabscene()
+    public string grabscene() //returns current scene name
     
     {
 
