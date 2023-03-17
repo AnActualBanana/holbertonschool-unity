@@ -10,6 +10,8 @@ public class Timer : MonoBehaviour
     private float minutes;
     private float seconds;
     private float milliseconds;
+    private bool isRunning = true;
+    public Text FinalTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +21,26 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        minutes = Mathf.FloorToInt(time/60f);
-        seconds = Mathf.FloorToInt(time%60f);
-        milliseconds = time*1000%1000f;
-
+        if (isRunning)
+        {
+            time += Time.deltaTime;
+            minutes = Mathf.FloorToInt(time/60f);
+            seconds = Mathf.FloorToInt(time%60f);
+            milliseconds = time*1000%1000f;
+        }
         TimerText.text = minutes.ToString() + ":" + seconds.ToString() + "." + milliseconds.ToString("0");
+    }
+    public void StartTimer()
+    {
+        isRunning = true;
+    }
+    public void StopTimer()
+    {
+        isRunning = false;
+    }
+    public void Win()
+    {
+        StopTimer();
+        FinalTime.text = TimerText.text;
     }
 }
