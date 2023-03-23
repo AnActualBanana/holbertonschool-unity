@@ -7,11 +7,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject player;
+    public GameObject magicDoor;
     private Transform resetSpawn;
     public CharacterController controller;
     public Transform cam;
 
-
+	public GameObject endGameContainer;
+	private int orbs = 0;
+	private int health = 5;
 
     public float speed = 6f;
     public float gravity = -9.81f;
@@ -27,6 +30,11 @@ public class PlayerController : MonoBehaviour
 
     public float turnSmoothTime = 0.1f;
     float  turnSmoothVelocity;
+
+    private void Start() 
+    {
+        
+    }
 
 
     private void Update()
@@ -79,6 +87,21 @@ public class PlayerController : MonoBehaviour
             player.transform.position = resetSpawn.position;
             controller.enabled = true;
             Debug.Log("Reset");
+        }
+        else if (other.gameObject.CompareTag("Orb"))
+        {
+            orbs++;
+            other.gameObject.SetActive(false);
+            if (orbs == 20)
+            {
+                GameObject.Find("Exit Door").GetComponent<OpenDoor>().opening = true;
+            }
+        }
+        else if (other.gameObject.CompareTag("Trap"))
+        {
+            health--;
+
+
         }
     }
 

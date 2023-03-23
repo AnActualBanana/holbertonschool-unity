@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Ground
   - Reset
+  - Walls
+  - Goal
+  - Pickup
+  - Trap
+  - Orb
   layers:
   - Default
   - TransparentFX
