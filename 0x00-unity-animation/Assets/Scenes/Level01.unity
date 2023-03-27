@@ -16288,6 +16288,7 @@ GameObject:
   - component: {fileID: 1179604935}
   - component: {fileID: 1179604934}
   - component: {fileID: 1179604937}
+  - component: {fileID: 1179604938}
   m_Layer: 0
   m_Name: CutSceneCamera
   m_TagString: Untagged
@@ -16381,6 +16382,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1179604938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179604933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f9b2f65cf202649b93ae8b9519357b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8104120089370052063}
+  mainCamera: {fileID: 385942272}
+  timerCanvas: {fileID: 4180628003218790817}
 --- !u!1001 &1180604251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29024,6 +29040,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimerCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4180628003104987974, guid: 30f403d244a1d7247852efab7504d565, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4180628003104987976, guid: 30f403d244a1d7247852efab7504d565, type: 3}
       propertyPath: m_MatchWidthOrHeight
       value: 1
@@ -29114,6 +29134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f403d244a1d7247852efab7504d565, type: 3}
+--- !u!1 &4180628003218790817 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4180628003104987974, guid: 30f403d244a1d7247852efab7504d565, type: 3}
+  m_PrefabInstance: {fileID: 4180628003218790816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7063024815302486867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29490,7 +29515,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8104120089370052063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f09dfbeadd4ffd47ae263b2d4bf8163, type: 3}
   m_Name: 
