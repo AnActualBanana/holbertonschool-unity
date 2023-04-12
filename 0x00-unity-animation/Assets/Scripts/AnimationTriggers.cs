@@ -20,10 +20,10 @@ public class AnimationTriggers : MonoBehaviour
     }
     public void splatAndGettingUp()
     {
-        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<CharacterController>().enabled = false;
     }
     public void gettingUpToIdle()
     {
-        player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<CharacterController>().enabled = true;
     }
 }

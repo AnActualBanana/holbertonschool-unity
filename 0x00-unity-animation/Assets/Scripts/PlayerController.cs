@@ -8,11 +8,12 @@ public class PlayerController : MonoBehaviour
     public GameObject magicDoor;
     Animator animator;
     private Transform resetSpawn;
+    public GameObject teleportSpawnPoint;
     public CharacterController controller;
     public Transform cam;
 
 	public GameObject endGameContainer;
-	private int orbs = 0;
+	public int orbs = 0;
 	private int health = 5;
 
     public float speed = 6f;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
             {
                 //normalizes velocity for gravity
                 animator.SetBool("isJumping", false);
-                velocity.y = -0.0f;
+                velocity.y = -2.0f;
             }
         }
         else if (groundCheckProtectionFrames == 0) //if not grounded but has frames, must have fallen (without jumping)
@@ -146,7 +147,11 @@ public class PlayerController : MonoBehaviour
         {
             resetSpawn = other.GetComponent<Reset>().teleportSpawnPoint.transform;
             controller.enabled = false;
-            player.transform.position = resetSpawn.position;
+            GameObject.Find("ty").GetComponent<Animator>().SetBool("isJumping", false);
+            GameObject.Find("ty").GetComponent<Animator>().SetBool("isFalling", false);
+            GameObject.Find("ty").GetComponent<Animator>().SetBool("isWalking", false);
+            player.transform.position = teleportSpawnPoint.transform.position;
+            GameObject.Find("ty").GetComponent<Animator>().SetBool("isSplatting", true);
             controller.enabled = true;
             Debug.Log("Reset");
         }
