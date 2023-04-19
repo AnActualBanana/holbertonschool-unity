@@ -34,10 +34,17 @@ public class PlayerController : MonoBehaviour
 
     public float turnSmoothTime = 0.1f;
     float  turnSmoothVelocity;
+    private AudioSource footsteps_Grass;
+    private AudioSource footsteps_Rock;
+
 
     private void Start() 
     {
+        //grabs animator from model
         animator = GameObject.Find("ty").GetComponent<Animator>(); //grabs animator component for access to its parameters(bools, in this case)
+        //grabs audio sources for sound
+        footsteps_Grass = GameObject.Find("footsteps_running_grass").GetComponent<AudioSource>();
+        footsteps_Rock = GameObject.Find("footsteps_running_rock").GetComponent<AudioSource>();
     }
 
 
@@ -109,7 +116,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        // movement
+        // movement input
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -119,6 +126,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded) //walking
             {
+                
                 animator.SetBool("isIdle", false);
                 animator.SetBool("isWalking", true);
             }
@@ -143,7 +151,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
 
-        if (other.gameObject.CompareTag("Reset")) //Teleport
+        if (other.gameObject.CompareTag("Reset")) //Teleport/respawn
         {
             resetSpawn = other.GetComponent<Reset>().teleportSpawnPoint.transform;
             controller.enabled = false;

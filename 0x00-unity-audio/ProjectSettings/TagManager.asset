@@ -11,6 +11,8 @@ TagManager:
   - Pickup
   - Trap
   - Orb
+  - Grass
+  - Rock
   layers:
   - Default
   - TransparentFX
