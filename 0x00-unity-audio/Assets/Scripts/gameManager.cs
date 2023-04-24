@@ -8,11 +8,9 @@ public class gameManager : MonoBehaviour
     public GameObject _gameManager = null;
     public string previousScene;
     public string currentScene;
-    private void Awake() {
-        {
-
+    private void Awake() 
+    {
             DontDestroyOnLoad(this.gameObject);
-        }
     }
     void Start()
     {
@@ -25,7 +23,7 @@ public class gameManager : MonoBehaviour
         previousScene = currentScene;
         currentScene = SceneManager.GetActiveScene().name;
         Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        //Debug.Log(mode);
     }
     public string grabscene() //returns current scene name
     

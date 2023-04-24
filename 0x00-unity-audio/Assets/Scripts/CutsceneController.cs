@@ -22,8 +22,11 @@ public class CutsceneController : MonoBehaviour
     {
         //assigns levelNumber int on animator to the name of level loaded
         animator = GameObject.Find("CutSceneCamera").GetComponent<Animator>();
-        currentLevelNumber = int.Parse(scene.name.Substring(5, 2));
-        animator.SetInteger("levelNumber", currentLevelNumber);
+        if (scene.name != "MainMenu" && scene.name != "Options")
+            {
+                currentLevelNumber = int.Parse(scene.name.Substring(5, 2));
+                animator.SetInteger("levelNumber", currentLevelNumber);
+            }
         
     }
     // Start is called before the first frame update

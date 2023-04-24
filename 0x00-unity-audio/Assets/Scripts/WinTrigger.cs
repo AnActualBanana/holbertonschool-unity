@@ -9,6 +9,7 @@ public class WinTrigger : MonoBehaviour
 	public GameObject player;
 	public GameObject winCanvas;
 	public GameObject bgm;
+	public GameObject winTheme;
 	void Start()
 	{
 	}
@@ -21,5 +22,6 @@ public class WinTrigger : MonoBehaviour
 		winCanvas.SetActive(true);
 		//Destroy(player.GetComponent<Timer>());
 		bgm.SetActive(false); // stops bgm
+		winTheme.GetComponent<AudioSource>().Play();
 	}
 }
