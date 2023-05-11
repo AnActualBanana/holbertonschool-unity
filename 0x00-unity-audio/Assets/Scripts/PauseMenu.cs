@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0;
         isPaused = true;
         pauseCanvas.SetActive(true);
-        pause.TransitionTo(.0f);
+        pause.TransitionTo(.1f);
     }
 
     public void Resume()
