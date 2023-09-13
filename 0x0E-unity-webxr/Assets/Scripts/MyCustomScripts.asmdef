@@ -1,0 +1,19 @@
+{
+    "name": "MyCustomScripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fd4abe4ffe74ef1448afe15c6cb36bb7",
+        "GUID:37dd379c4dca57b4c8e77e954a48de61",
+        "GUID:b03f9333ea039ed43843c5af65357fc4",
+        "GUID:e40ba710768534012815d3193fa296cb"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
